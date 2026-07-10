@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: zynd
+      POSTGRES_PASSWORD: zynd
+      POSTGRES_DB: zynd
+    ports:
+      - "5432:5432"
+    volumes:
+      - zynd_pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./Redis/redis.local.conf:/usr/local/etc/redis/redis.conf:ro
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+volumes:
+  zynd_pg_data:
